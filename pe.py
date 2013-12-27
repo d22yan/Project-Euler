@@ -16,8 +16,8 @@ def ReverseString(string):
 	return string[::-1]
 
 #	ID	1
-# 	Multiples of 3 and 5
-#	Finds the sum of all the multiples of 3 or 5
+#	Multiples of 3 and 5
+#	Find the sum of all the multiples of 3 or 5
 def MultiplesOf3And5(number):
 	result = 0
 	for counter in range(0,number,3):
@@ -29,7 +29,7 @@ def MultiplesOf3And5(number):
 
 #	ID	2
 #	Even Fibonacci numbers
-#	Finds the sum of the even-valued terms of the Fibonacci sequence whose values does not exceed four million
+#	Find the sum of the even-valued terms of the Fibonacci sequence whose values does not exceed four million
 def EvenFibonacciNumbers(number):
 	result = 0
 	x1 = 1
@@ -43,17 +43,19 @@ def EvenFibonacciNumbers(number):
 
 #	ID	3
 #	Largest prime factor
-#	Returns the largest prime factor
+#	Return the largest prime factor
 def LargestPrimeFactor(number):
-	result = 1
-	for counter in range(1, int(number**0.5)+2, 2):
+	if IsPrime(number):
+		return number
+	result = 2
+	for counter in range(3, int(number**0.5)+2, 2):
 		if IsPrime(counter) and number % counter == 0:
 			result = counter
 	return result
 
 #	ID	4
 #	Largest palindrome product
-#	Finds the largest palindrome made from the product of two 3-digit numbers
+#	Find the largest palindrome made from the product of two 3-digit numbers
 def LargestPalindromeProduct(digit=3):
 	HalfOfMaxPalindromeNumber = 0
 	PalindromeString = ""
@@ -77,3 +79,4 @@ def LargestPalindromeProduct(digit=3):
 #	Return the smallest positive number that is evenly divisible by all of the numbers from 1 to 20
 def SmallestMultiple(number=10):
 	return
+
