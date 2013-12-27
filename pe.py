@@ -22,6 +22,27 @@ def GeneratePrimeFactors(number):
 		PrimeFactors.append(number)
 	return PrimeFactors
 
+def GeneratePrimes(size):
+	PrimeList = []
+	Counter = 3
+	IsNotPrime = False
+	if size < 1:
+		return PrimeList
+	PrimeList.append(2)
+	size -= 1
+	while size:
+		IsNotPrime = False;
+		for Prime in PrimeList:
+			if Counter%Prime == 0:
+				IsNotPrime = True
+				break
+		if not IsNotPrime:
+			PrimeList.append(Counter)
+			size -= 1
+		Counter += 2;
+	return PrimeList;
+
+
 def IsPrime(number):
 	if number < 2:
 		return False
@@ -29,8 +50,8 @@ def IsPrime(number):
 		return True
 	if not number & 1:
 		return False
-	for counter in range(3, int(number**0.5)+2, 2):
-		if number % counter == 0:
+	for Counter in range(3, int(number**0.5)+2, 2):
+		if number % Counter == 0:
 			return False
 	return True
 
@@ -42,11 +63,11 @@ def ReverseString(string):
 #	Find the sum of all the multiples of 3 or 5
 def MultiplesOf3And5(number):
 	result = 0
-	for counter in range(0,number,3):
-		result += counter
-	for counter in range(0,number,5):
-		if counter % 3 != 0:
-			result += counter
+	for Counter in range(0,number,3):
+		result += Counter
+	for Counter in range(0,number,5):
+		if Counter % 3 != 0:
+			result += Counter
 	return result
 
 #	ID	2
@@ -70,9 +91,9 @@ def LargestPrimeFactor(number):
 	if IsPrime(number):
 		return number
 	result = 2
-	for counter in range(3, int(number**0.5)+2, 2):
-		if IsPrime(counter) and number % counter == 0:
-			result = counter
+	for Counter in range(3, int(number**0.5)+2, 2):
+		if IsPrime(Counter) and number % Counter == 0:
+			result = Counter
 	return result
 
 #	ID	4
@@ -81,12 +102,12 @@ def LargestPrimeFactor(number):
 def LargestPalindromeProduct(digit=3):
 	HalfOfMaxPalindromeNumber = 0
 	PalindromeString = ""
-	for counter in range(0,digit-1):
+	for Counter in range(0,digit-1):
 		HalfOfMaxPalindromeNumber += 9
 		HalfOfMaxPalindromeNumber *= 10
 	HalfOfMaxPalindromeNumber += 8
-	for counter in range(int(HalfOfMaxPalindromeNumber), 10**(digit-1), -1):
-		PalindromeString = str(counter) + ReverseString(str(counter))
+	for Counter in range(int(HalfOfMaxPalindromeNumber), 10**(digit-1), -1):
+		PalindromeString = str(Counter) + ReverseString(str(Counter))
 		PalindromeNumber = int(PalindromeString)
 		if not IsPrime(PalindromeNumber):
 			for factor in range(10**(digit-1)+1, 10**(digit)-1):
@@ -103,8 +124,8 @@ def SmallestMultiple(number=20):
 	MaxPrimeFactorsDictionary = {}
 	PrimeFactorsCount = {}
 	Result = 1
-	for counter in range(2,number+1):
-		for PrimeFactor in GeneratePrimeFactors(counter): 
+	for Counter in range(2,number+1):
+		for PrimeFactor in GeneratePrimeFactors(Counter): 
 			if PrimeFactorsCount.has_key(PrimeFactor):
 				PrimeFactorsCount[PrimeFactor] += 1
 			else:
@@ -126,3 +147,10 @@ def SumSquareDifference(number=100):
 	for Combination in GenerateCombinations(range(number+1),2):
 		Result += 2*Combination[0]*Combination[1]
 	return Result
+
+#	ID	7
+#	10001st prime
+#	Find the 10 001st prime number
+def NthPrime(Size=10001):
+	return GeneratePrimes(Size)[-1]
+
