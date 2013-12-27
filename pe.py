@@ -1,5 +1,22 @@
 #!/user/bin/python
 
+def GetPrimeFactors(number):
+	PrimeFactors = []
+	Factor = 2
+	while number%Factor == 0:
+		PrimeFactors.append(Factor)
+		number /= Factor
+	Factor += 1
+	while Factor*Factor <= number:
+		if number%Factor == 0:
+			PrimeFactors.append(Factor)
+			number /= Factor
+		else:
+			Factor += 2
+	if number != 1:
+		PrimeFactors.append(number)
+	return PrimeFactors
+
 def IsPrime(number):
 	if number < 2:
 		return False
@@ -77,6 +94,21 @@ def LargestPalindromeProduct(digit=3):
 #	ID	5
 #	Smallest multiple
 #	Return the smallest positive number that is evenly divisible by all of the numbers from 1 to 20
-def SmallestMultiple(number=10):
-	return
-
+def SmallestMultiple(number=20):
+	MaxPrimeFactorsDictionary = {}
+	PrimeFactorsCount = {}
+	Result = 1
+	for counter in range(2,number+1):
+		for PrimeFactor in GetPrimeFactors(counter): 
+			if PrimeFactorsCount.has_key(PrimeFactor):
+				PrimeFactorsCount[PrimeFactor] += 1
+			else:
+				PrimeFactorsCount[PrimeFactor] = 1
+		for Key in PrimeFactorsCount:
+			if MaxPrimeFactorsDictionary.has_key(Key) and MaxPrimeFactorsDictionary[Key] >= PrimeFactorsCount[Key]:
+				continue
+			MaxPrimeFactorsDictionary[Key] = PrimeFactorsCount[Key]
+		PrimeFactorsCount.clear()
+	for Key in MaxPrimeFactorsDictionary:
+		Result *= Key**MaxPrimeFactorsDictionary[Key]
+	return Result
