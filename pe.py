@@ -1,6 +1,11 @@
 #!/user/bin/python
 
-def GetPrimeFactors(number):
+import itertools
+
+def GenerateCombinations(inputList, inputlength):
+	return itertools.combinations(inputList, inputlength)
+
+def GeneratePrimeFactors(number):
 	PrimeFactors = []
 	Factor = 2
 	while number%Factor == 0:
@@ -99,7 +104,7 @@ def SmallestMultiple(number=20):
 	PrimeFactorsCount = {}
 	Result = 1
 	for counter in range(2,number+1):
-		for PrimeFactor in GetPrimeFactors(counter): 
+		for PrimeFactor in GeneratePrimeFactors(counter): 
 			if PrimeFactorsCount.has_key(PrimeFactor):
 				PrimeFactorsCount[PrimeFactor] += 1
 			else:
@@ -111,4 +116,13 @@ def SmallestMultiple(number=20):
 		PrimeFactorsCount.clear()
 	for Key in MaxPrimeFactorsDictionary:
 		Result *= Key**MaxPrimeFactorsDictionary[Key]
+	return Result
+
+#	ID	6
+#	Sum square difference
+#	Find the difference between the sum of the squares of the first hundred natural numbers and the square of the sum
+def SumSquareDifference(number=100):
+	Result = 0
+	for Combination in GenerateCombinations(range(number+1),2):
+		Result += 2*Combination[0]*Combination[1]
 	return Result
