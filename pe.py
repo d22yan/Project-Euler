@@ -48,6 +48,7 @@ def GeneratePrimes(size):
 				IsNotPrime = True
 				break
 		if not IsNotPrime:
+			print str(size) + " " + str(Counter)
 			PrimeList.append(Counter)
 			size -= 1
 		Counter += 2;
@@ -182,3 +183,32 @@ def SpecialPythagoreanTriple(number=1000):
 				print str(a) + " " + str(b)+ " " + str(c)
 				return a*b*c
 	return
+
+#	ID 	10
+#	Summation of primes
+#	Find the sum of all the primes below two million
+def SummationOfPrimes(number=2000000):
+	if number <= 1:
+		return 
+	Result = 0
+	PrimeList = list(range(3,number,2))
+	SquaredNumberIndex = 0
+	SquaredNumber = int(number**0.5) + 2
+	for Counter in range(len(PrimeList)):
+		if PrimeList[Counter] > SquaredNumber:
+			SquaredNumberIndex = Counter
+			break
+	for Index in range(0,SquaredNumberIndex+1):
+		Length = len(PrimeList)
+		Index2 = Index + 1
+		while Index2 < Length:
+			if PrimeList[Index2]%PrimeList[Index] == 0:
+				print str(PrimeList[Index]) + " " + str(PrimeList[Index2])
+				PrimeList.pop(Index2)
+				Length -= 1
+				Index2 -= 1
+			Index2 += 1
+	for Prime in PrimeList:
+		Result += Prime
+	print PrimeList
+	return Result + 2
