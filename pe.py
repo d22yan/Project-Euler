@@ -1,6 +1,17 @@
 #!/user/bin/python
-
 import itertools
+
+def IsPrime(number):
+	if number < 2:
+		return False
+	if number == 2:
+		return True
+	if not number & 1:
+		return False
+	for Counter in range(3, int(number**0.5)+2, 2):
+		if number % Counter == 0:
+			return False
+	return True
 
 def GenerateCombinations(inputList, inputlength):
 	return itertools.combinations(inputList, inputlength)
@@ -42,18 +53,6 @@ def GeneratePrimes(size):
 		Counter += 2;
 	return PrimeList;
 
-
-def IsPrime(number):
-	if number < 2:
-		return False
-	if number == 2:
-		return True
-	if not number & 1:
-		return False
-	for Counter in range(3, int(number**0.5)+2, 2):
-		if number % Counter == 0:
-			return False
-	return True
 
 def ReverseString(string):
 	return string[::-1]
@@ -162,12 +161,24 @@ def LargestProductInASeries(consecutiveDigits, number=73167176531330624919225119
 	Length = len(str(number))
 	Result = 0
 	StringNumberList = list(str(number))
-	for index in range(0, Length - consecutiveDigits + 1):
+	for index in range(0, Length-consecutiveDigits+1):
 		Product = 1
 		for counter in range(0, consecutiveDigits):
-			Product *= int(StringNumberList[index + counter])
+			Product *= int(StringNumberList[index+counter])
 		ProductList.append(Product)
 	for Product in ProductList:
 		if Product > Result:
 			Result = Product
 	return Result
+
+#	ID 	9
+#	Special Pythagorean triplet
+#	Find the product of abc where there exists exactly one Pythagorean triplet for which a + b + c = 1000
+def SpecialPythagoreanTriple(number=1000):
+	for a in range(1, number):
+		for b in range(1, number):
+			c = (a**2 + b**2)**(0.5)
+			if (a + b + c) == number:
+				print str(a) + " " + str(b)+ " " + str(c)
+				return a*b*c
+	return
