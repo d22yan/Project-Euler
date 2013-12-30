@@ -55,7 +55,15 @@ def GeneratePrimes(size):
 	return PrimeList;
 
 def NumberOfDivisors(number):
-	return
+	if number < 1:
+		return 0
+	if number == 1:
+		return 1
+	Counter = 0
+	for Divisors in range(2,int(number**0.5)+1):
+		if number%Divisors == 0:
+			Counter += 1
+	return (Counter+1)*2
 
 def ReverseString(string):
 	return string[::-1]
@@ -239,5 +247,13 @@ def LargestProductInAGrid(adjacentNumbers, grid=[[8, 2, 22, 97, 38, 15, 0, 40, 0
 #	Highly divisible triangular number
 #	Find the value of the first triangle number to have over five hundred divisors
 def HighlyDivisibleTriangularNumber(divisors=500):
-
-	return
+	if divisors < 1:
+		return
+	TriangleNumber = 0
+	Counter = 1
+	while divisors > NumberOfDivisors(TriangleNumber):
+		print str(TriangleNumber) + " " + str(NumberOfDivisors(TriangleNumber))
+		TriangleNumber += Counter
+		Counter += 1
+	return TriangleNumber
+	
