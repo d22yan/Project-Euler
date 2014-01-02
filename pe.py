@@ -1,8 +1,9 @@
 #!/user/bin/python
-import collections # Tree
-import itertools # Generate Combinations
+from collections import defaultdict
+from itertools import combinations
+from math import factorial
 
-def Tree(): return collections.defaultdict(Tree)
+def Tree(): return defaultdict(Tree)
 
 def IsPrime(number):
 	if number < 2:
@@ -17,17 +18,17 @@ def IsPrime(number):
 	return True
 
 def GenerateCombinations(inputList, inputlength):
-	return itertools.combinations(inputList, inputlength)
+	return combinations(inputList, inputlength)
 
 def GeneratePrimeFactors(number):
 	PrimeFactors = []
 	Factor = 2
-	while number%Factor == 0:
+	while number % Factor == 0:
 		PrimeFactors.append(Factor)
 		number /= Factor
 	Factor += 1
 	while Factor*Factor <= number:
-		if number%Factor == 0:
+		if number % Factor == 0:
 			PrimeFactors.append(Factor)
 			number /= Factor
 		else:
@@ -47,7 +48,7 @@ def GeneratePrimes(size):
 	while size:
 		IsNotPrime = False;
 		for Prime in PrimeList:
-			if Counter%Prime == 0:
+			if Counter % Prime == 0:
 				IsNotPrime = True
 				break
 		if not IsNotPrime:
@@ -67,6 +68,9 @@ def NumberOfDivisors(number):
 		if number%Divisors == 0:
 			Counter += 1
 	return (Counter+1)*2
+
+def NumberOfKCombinations(n,k):
+    return factorial(n) / factorial(k) / factorial(n-k)
 
 def ReverseString(string):
 	return string[::-1]
@@ -124,7 +128,7 @@ def LargestPalindromeProduct(digit=3):
 		PalindromeNumber = int(PalindromeString)
 		if not IsPrime(PalindromeNumber):
 			for factor in range(10**(digit-1)+1, 10**(digit)-1):
-				if PalindromeNumber%factor == 0:
+				if PalindromeNumber % factor == 0:
 					factor2 = PalindromeNumber/factor
 					if len(str(factor2)) == digit:
 						return PalindromeNumber
@@ -215,7 +219,7 @@ def SummationOfPrimes(number=2000000):
 		Length = len(PrimeList)
 		Index2 = Index + 1
 		while Index2 < Length:
-			if PrimeList[Index2]%PrimeList[Index] == 0:
+			if PrimeList[Index2] % PrimeList[Index] == 0:
 				PrimeList.pop(Index2)
 				Length -= 1
 				Index2 -= 1
@@ -276,7 +280,7 @@ def LongestCollatzSequence(number=1000000):
 		StartingNumber = number
 		Chain = 0
 		while number > 1:
-			if number%2 == 0:
+			if number % 2 == 0:
 				number = number/2
 			else:
 				number = 3*number + 1
@@ -285,3 +289,12 @@ def LongestCollatzSequence(number=1000000):
 			LongestChainStartingNumber = StartingNumber
 			LongestChain = Chain
 	return LongestChainStartingNumber
+
+#	ID 	15
+#	Lattice paths
+#	Find the number of route are there through a 20x20 grid
+def LatticePaths(GridSize=20):
+	Result = NumberOfKCombinations(GridSize, GridSize/2)**2 if GridSize % 2 == 0 else 0
+	for Counter in range(0, int((GridSize - 1)/2) + 1):
+		Result += 2*(NumberOfKCombinations(GridSize,Counter)**2)
+	return Result
