@@ -298,10 +298,21 @@ def LatticePaths(GridSize=20):
 
 #	ID 	16
 #	Power digit sum
-#	find the sum of the digits of the number 2**1000
+#	Find the sum of the digits of the number 2**1000
 def PowerDigitSum(exponent=1000):
 	PowerString = str(2**exponent)
 	PowerDigitSum = 0
 	for Character in range(0, len(PowerString)):
 		PowerDigitSum += int(PowerString[Character])
 	return PowerDigitSum
+
+#	ID 	17
+#	Number letter counts
+#	Find the number of letters would be used when 1 to 1000 are written out in words.
+def NumberLetterCounts():
+	NumberOfCharactersFrom1To9 = 3 + 3 + 5 + 4 + 4 + 3 + 5 + 5 + 4
+	NumberOfCharactersFrom11To19 = + 6 + 6 + 8 + 8 + 7 + 7 + 9 + 8 + 8
+	NumberOfCharactersFrom1To19 = NumberOfCharactersFrom1To9 + 3 + NumberOfCharactersFrom11To19
+	NumberOfCharactersFrom1To99 = NumberOfCharactersFrom1To19 + 8*NumberOfCharactersFrom1To9 + 10*(6 + 6 + 5 + 5 + 5 + 7 + 6 + 6)
+	NumberOfCharactersFrom1To999 = 10*NumberOfCharactersFrom1To99 + 100*NumberOfCharactersFrom1To9 + 900*7 + 9*99*3
+	return NumberOfCharactersFrom1To999 + 3 + 8
