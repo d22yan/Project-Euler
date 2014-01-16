@@ -3,6 +3,7 @@ from collections import defaultdict
 from itertools import combinations
 from math import factorial
 from math import sqrt
+import datetime
 
 def Tree(): return defaultdict(Tree)
 
@@ -353,3 +354,15 @@ def MaximumPathSum1(numbers=[75, 95, 64, 17, 47, 82, 18, 35, 87, 10, 20, 4, 82, 
 				Buffer = Grid[Row][Col + 1]
 			Grid[Row - 1][Col] += Buffer 
 	return Grid[0][0]
+
+#	ID 	19
+#	Counting Sundays
+#	Find the number of Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)
+def CountingSundays(startingYear=1901):
+	Result = 0
+	startDate = datetime.date(startingYear, 1, 1)
+	for Year in range(100):
+		for Month in range(1,13):
+			if datetime.date(startingYear + Year, Month, 1).weekday() == 6:
+				Result += 1
+	return Result
