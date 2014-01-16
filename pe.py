@@ -366,3 +366,16 @@ def CountingSundays(startingYear=1901):
 			if datetime.date(startingYear + Year, Month, 1).weekday() == 6:
 				Result += 1
 	return Result
+
+#	ID 	20
+#	Factorial digit sum
+#	Find the sum of the digits in the number 100!
+def FactorialDigitSum(number=100):
+	if number < 0:
+		return
+	Result = 0
+	FactorialString = str(factorial(number))
+	Length = len(FactorialString)
+	for Index in range(Length):
+		Result += int(FactorialString[Index])
+	return Result
