@@ -1,11 +1,12 @@
 #!/user/bin/python
 from collections import defaultdict
+from datetime import date
 from itertools import combinations
 from math import factorial
 from math import sqrt
-import datetime
 
-def Tree(): return defaultdict(Tree)
+def Tree(): 
+	return defaultdict(Tree)
 
 def IsPrime(number):
 	if number < 2:
@@ -88,6 +89,17 @@ def NthTriangleNumber(triangleNumber):
 
 def ReverseString(string):
 	return string[::-1]
+
+def SumOfDivisors(number):
+	if number < 1:
+		return 0
+	if number == 1:
+		return 1
+	SumOfDivisors = 1
+	for Divisors in range(2,int(number**0.5)+1):
+		if number%Divisors == 0:
+			SumOfDivisors += Divisors + (number/Divisors)
+	return SumOfDivisors 
 
 #	ID	1
 #	Multiples of 3 and 5
@@ -359,13 +371,13 @@ def MaximumPathSum1(numbers=[75, 95, 64, 17, 47, 82, 18, 35, 87, 10, 20, 4, 82, 
 #	Counting Sundays
 #	Find the number of Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)
 def CountingSundays(startingYear=1901):
-	Result = 0
-	startDate = datetime.date(startingYear, 1, 1)
+	NumberOfSundays = 0
+	startDate = date(startingYear, 1, 1)
 	for Year in range(100):
 		for Month in range(1,13):
-			if datetime.date(startingYear + Year, Month, 1).weekday() == 6:
-				Result += 1
-	return Result
+			if date(startingYear + Year, Month, 1).weekday() == 6:
+				NumberOfSundays += 1
+	return NumberOfSundays
 
 #	ID 	20
 #	Factorial digit sum
@@ -373,9 +385,25 @@ def CountingSundays(startingYear=1901):
 def FactorialDigitSum(number=100):
 	if number < 0:
 		return
-	Result = 0
+	SumOfTheDigits = 0
 	FactorialString = str(factorial(number))
 	Length = len(FactorialString)
 	for Index in range(Length):
-		Result += int(FactorialString[Index])
-	return Result
+		SumOfTheDigits += int(FactorialString[Index])
+	return SumOfTheDigits
+
+#	ID 	21
+#	Amicable numbers
+#	Find the sum of all the amicable numbers under 1000
+def AmicableNumbers(number=10000):
+	if number < 1: 
+		return
+	SumOfAmicableNumbers = 0
+	AmicableNumbers = [0 for x in range(number)]
+	for Index in range(number):
+		AmicableNumbers[Index] = SumOfDivisors(Index)
+	for Index in range(number):
+		AmicableNumbeOfIndex = AmicableNumbers[Index]
+		if AmicableNumbeOfIndex < number and Index != AmicableNumbeOfIndex and Index == AmicableNumbers[AmicableNumbeOfIndex]:
+			SumOfAmicableNumbers += Index
+	return SumOfAmicableNumbers
