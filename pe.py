@@ -144,7 +144,7 @@ def LargestPrimeFactor(number=600851475143):
 #	Find the largest palindrome made from the product of two 3-digit numbers
 def LargestPalindromeProduct(digit=3):
 	HalfOfMaxPalindromeNumber = 0
-	PalindromeString = ""
+	PalindromeString = ''
 	for Counter in range(0,digit-1):
 		HalfOfMaxPalindromeNumber += 9
 		HalfOfMaxPalindromeNumber *= 10
@@ -407,3 +407,18 @@ def AmicableNumbers(number=10000):
 		if AmicableNumbeOfIndex < number and Index != AmicableNumbeOfIndex and Index == AmicableNumbers[AmicableNumbeOfIndex]:
 			SumOfAmicableNumbers += Index
 	return SumOfAmicableNumbers
+
+#	ID 	22
+#	Names scores
+#	Find the total of all the name scores in the file, "names.txt". The name scores is the alphabetical value of a name multiplied by its position in the list.
+def NamesScores(fileName="names.txt"):
+	NameList = []
+	Result = 0
+	with open(fileName) as FileReader:
+		NameList = sorted(FileReader.readline().replace('"','').upper().split(','))
+	for Index in range(len(NameList)):
+		for Character in NameList[Index]:
+			Result += (ord(Character) - 64)*(Index + 1)
+	return Result 
+
+print NamesScores()
