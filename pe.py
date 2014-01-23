@@ -98,7 +98,9 @@ def SumOfDivisors(number):
 	SumOfDivisors = 1
 	for Divisors in range(2,int(number**0.5)+1):
 		if number%Divisors == 0:
-			SumOfDivisors += Divisors + (number/Divisors)
+			SumOfDivisors += Divisors 
+			if Divisors != number/Divisors:
+				SumOfDivisors += number/Divisors
 	return SumOfDivisors 
 
 #	ID	1
@@ -421,4 +423,23 @@ def NamesScores(fileName="names.txt"):
 			Result += (ord(Character) - 64)*(Index + 1)
 	return Result 
 
-print NamesScores()
+#	ID 	23
+#	Non-abundant sums
+#	Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers
+def NonAbundantSums():
+	AbundantNumbers = []
+	NonAbundantSums = 0
+	UpperLimit = 28124
+	for Number in range(1, UpperLimit):
+		if (Number % 2 == 0 or Number % 5 == 0) and SumOfDivisors(Number) > Number:
+			AbundantNumbers.append(Number)
+	NonSumsOfTwoAbundantNumbers = [1 for x in range(UpperLimit)]
+	for AbundantNumber in AbundantNumbers:
+		for AbundantNumber2 in AbundantNumbers:
+			SumOfTwoAbundantNumbers = AbundantNumber + AbundantNumber2
+			if SumOfTwoAbundantNumbers < UpperLimit: 
+				NonSumsOfTwoAbundantNumbers[SumOfTwoAbundantNumbers] = 0
+	for Index in range(UpperLimit):
+		if NonSumsOfTwoAbundantNumbers[Index] == 1:
+			NonAbundantSums += Index
+	return NonAbundantSums
