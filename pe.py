@@ -2,6 +2,7 @@
 from collections import defaultdict
 from datetime import date
 from itertools import combinations
+from itertools import permutations
 from math import factorial
 from math import sqrt
 
@@ -19,9 +20,6 @@ def IsPrime(number):
 		if number % Counter == 0:
 			return False
 	return True
-
-def GenerateCombinations(inputList, inputlength):
-	return combinations(inputList, inputlength)
 
 def GeneratePrimeFactors(number):
 	PrimeFactors = []
@@ -189,7 +187,7 @@ def SmallestMultiple(number=20):
 #	Find the difference between the sum of the squares of the first hundred natural numbers and the square of the sum
 def SumSquareDifference(number=100):
 	SumSquareDifference = 0
-	for Combination in GenerateCombinations(range(number+1),2):
+	for Combination in combinations(range(number+1),2):
 		SumSquareDifference += 2*Combination[0]*Combination[1]
 	return SumSquareDifference
 
@@ -320,10 +318,7 @@ def LongestCollatzSequence(number=1000000):
 #	Lattice paths
 #	Find the number of route are there through a 20x20 grid
 def LatticePaths(gridSize=20):
-	LatticePaths = NumberOfKCombinations(gridSize, gridSize/2)**2 if gridSize % 2 == 0 else 0
-	for Counter in range(0, int((gridSize - 1)/2) + 1):
-		LatticePaths += 2*(NumberOfKCombinations(gridSize,Counter)**2)
-	return LatticePaths
+	return factorial(gridSize * 2)/pow(factorial(gridSize), 2);
 
 #	ID 	16
 #	Power digit sum
@@ -443,3 +438,9 @@ def NonAbundantSums():
 		if NonSumsOfTwoAbundantNumbers[Index] == 1:
 			NonAbundantSums += Index
 	return NonAbundantSums
+
+#	ID 	24
+#	Lexicographic permutations
+#	Find the millionth lexicographic permutation of the digits 0 to 9
+def LexicographicPermutations(lexicographicPosition=1000000):
+	return 
