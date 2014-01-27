@@ -443,4 +443,17 @@ def NonAbundantSums():
 #	Lexicographic permutations
 #	Find the millionth lexicographic permutation of the digits 0 to 9
 def LexicographicPermutations(lexicographicPosition=1000000):
-	return 
+	Counter = 0
+	Digit = 10
+	Elements = [x for x in range(Digit)]
+	Result = [0 for x in range(Digit)]
+	for Index in range(Digit):
+		PossiblePermutation = factorial(len(Elements) - 1)
+		for Element in Elements:
+			Counter += PossiblePermutation
+			if Counter >= lexicographicPosition:
+				Counter -= PossiblePermutation
+				Result[Index] = Element
+				Elements.remove(Element)
+				break
+	return Result
