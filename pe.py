@@ -457,3 +457,21 @@ def LexicographicPermutations(lexicographicPosition=1000000):
 				Elements.remove(Element)
 				break
 	return Result
+
+#	ID 	25
+#	1000-digit Fibonacci number
+#	Find the first term in the Fibonacci sequence to contain 1000 digits
+def NDigitFibonacciNumber(digits=1000):
+	if digits < 1:
+		return
+	if digits == 1:
+		return 1
+	NthTerm = 3
+	x1 = 1
+	x2 = 2
+	while len(str(x2)) < digits:
+		Temp = x2
+		x2 = x2 + x1
+		x1 = Temp
+		NthTerm += 1
+	return NthTerm
