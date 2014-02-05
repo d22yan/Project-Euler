@@ -1,10 +1,10 @@
-#!/user/bin/python
 from collections import defaultdict
 from datetime import date
 from itertools import combinations
 from itertools import permutations
 from math import factorial
 from math import sqrt
+import re
 
 def Tree(): 
 	return defaultdict(Tree)
@@ -40,23 +40,44 @@ def GeneratePrimeFactors(number):
 
 def GeneratePrimes(size):
 	PrimeList = []
-	Counter = 3
-	IsNotPrime = False
 	if size < 1:
 		return PrimeList
 	PrimeList.append(2)
 	size -= 1
+	Number = 3
 	while size:
-		IsNotPrime = False;
+		IsPrime = True;
 		for Prime in PrimeList:
-			if Counter % Prime == 0:
-				IsNotPrime = True
+			if Number % Prime == 0:
+				IsPrime = False
 				break
-		if not IsNotPrime:
-			PrimeList.append(Counter)
+		if IsPrime:
+			PrimeList.append(Number)
 			size -= 1
-		Counter += 2;
+		Number += 2;
 	return PrimeList;
+
+def GeneratePrimes(fromX, toY):
+	PrimeList = []
+	if toY < fromX or toY < 2:
+		return PrimeList
+	PrimeList.append(2)
+	Number = 3
+	Counter = 1
+	StartingIndex = 0
+	while Number <= toY:
+		IsPrime = True;
+		for Prime in PrimeList:
+			if Number % Prime == 0:
+				IsPrime = False
+				break
+		if IsPrime:
+			PrimeList.append(Number)
+			Counter += 1
+			if Number < fromX:
+				StartingIndex = Counter 
+		Number += 2;
+	return PrimeList[StartingIndex:];
 
 def NumberOfDivisors(number):
 	if number < 1:
@@ -475,3 +496,16 @@ def NDigitFibonacciNumber(digits=1000):
 		x1 = Temp
 		NthTerm += 1
 	return NthTerm
+
+#	ID 	26
+#	Reciprocal cycles
+#	Find the value of the denominator < 1000 for which 1/d contains the longest recurring cycle in its decimal fraction part
+def ReciprocalCycles(limit=1000): 
+	Base = 10
+	PrimeList = GeneratePrimes(0,limit)
+	Regex = re.compile('^([0-9]+)\\1+$')
+	for Prime in PrimeList[::-1]:
+		CyclicNumber = (pow(Base,Prime - 1) - 1) / Prime
+		if not Regex.match(str(CyclicNumber).replace("0","")):
+			return Prime
+	return
