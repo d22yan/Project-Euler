@@ -502,10 +502,29 @@ def NDigitFibonacciNumber(digits=1000):
 #	Find the value of the denominator < 1000 for which 1/d contains the longest recurring cycle in its decimal fraction part
 def ReciprocalCycles(limit=1000): 
 	Base = 10
-	PrimeList = GeneratePrimes(0,limit)
+	PrimeList = GeneratePrimes(0, limit)
 	Regex = re.compile('^([0-9]+)\\1+$')
 	for Prime in PrimeList[::-1]:
-		CyclicNumber = (pow(Base,Prime - 1) - 1) / Prime
+		CyclicNumber = (pow(Base, Prime - 1) - 1) / Prime
 		if not Regex.match(str(CyclicNumber).replace("0","")):
 			return Prime
 	return
+
+#	ID 	27
+#	Quadratic primes
+#	Find the product of the coefficients, a and b, for the quadratic expression, n^2 + an +b that produces the maximum number of primes for consecutive values of n, starting with n = 0
+def QuadraticPrimes(limit=1000):
+	PrimeList = GeneratePrimes(0, limit)
+	CoefficientBList = [-x for x in PrimeList[::-1]]
+	CoefficientBList.extend(PrimeList)
+	MaxCounter = 0
+	for CoefficientB in PrimeList:
+		for CoefficientA in range(-(limit - 1), limit):
+			Counter = 1
+			while IsPrime(pow(Counter,2) + CoefficientA*Counter + CoefficientB):
+				Counter += 1				
+			if Counter > MaxCounter:
+				MaxCounter = Counter
+				MaxCoefficientA = CoefficientA
+				MaxCoefficientB = CoefficientB
+	return MaxCoefficientA*MaxCoefficientB
