@@ -528,3 +528,21 @@ def QuadraticPrimes(limit=1000):
 				MaxCoefficientA = CoefficientA
 				MaxCoefficientB = CoefficientB
 	return MaxCoefficientA*MaxCoefficientB
+
+#	ID 	28
+#	Number spiral diagonals
+#	What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral formed in the same way?
+def NumberSpiralDiagonals(DiagonalLength=1001):
+	if DiagonalLength < 1 or DiagonalLength % 2 == 0: 
+		return 
+	if DiagonalLength == 1:
+		return 1
+	SpiralLevel = (DiagonalLength - 1) / 2
+	SpiralNumber = [1,1,1,1]
+	SumSpiralDiagonals = 1
+	for Level in range(SpiralLevel):
+		for Direction in range(4):
+			SpiralNumber[Direction] += 8 * Level + 2 * (Direction + 1)
+			SumSpiralDiagonals += SpiralNumber[Direction]
+			print SpiralNumber[Direction]
+	return SumSpiralDiagonals
