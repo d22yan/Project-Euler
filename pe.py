@@ -191,10 +191,7 @@ def SmallestMultiple(number=20):
 	SmallestMultiple = 1
 	for Counter in range(2,number+1):
 		for PrimeFactor in GeneratePrimeFactors(Counter): 
-			if PrimeFactorsCount.has_key(PrimeFactor):
-				PrimeFactorsCount[PrimeFactor] += 1
-			else:
-				PrimeFactorsCount[PrimeFactor] = 1
+			PrimeFactorsCount[PrimeFactor] = PrimeFactorsCount[PrimeFactor] + 1 if PrimeFactorsCount.has_key(PrimeFactor) else 1
 		for Key in PrimeFactorsCount:
 			if MaxPrimeFactorsDictionary.has_key(Key) and MaxPrimeFactorsDictionary[Key] >= PrimeFactorsCount[Key]:
 				continue
@@ -326,10 +323,7 @@ def LongestCollatzSequence(number=1000000):
 		StartingNumber = number
 		Chain = 0
 		while number > 1:
-			if number % 2 == 0:
-				number = number/2
-			else:
-				number = 3*number + 1
+			number = number / 2 if number % 2 ==0 else 3 * number + 1
 			Chain += 1
 		if Chain > LongestChain:
 			LongestCollatzSequence = StartingNumber
@@ -557,3 +551,18 @@ def DistinctPowers(limit=100):
 		for B in range(2, limit + 1):
 			DistinctPowers.add(pow(A, B))
 	return len(DistinctPowers)
+
+#	ID  30
+#	Digit fifth powers
+#	Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.
+def DigitFifthPowers():
+	Power = 5
+	SumDigitNthPowers = 0
+	for Counter in range(2, pow(10, Power + 1)):
+		StringCounter = str(Counter)
+		SumPoweredStringCounter = 0
+		for Digit in StringCounter:
+			SumPoweredStringCounter += pow(int(Digit), Power)
+		if Counter == SumPoweredStringCounter:
+			SumDigitNthPowers += Counter
+	return SumDigitNthPowers
