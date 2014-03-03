@@ -582,21 +582,21 @@ def CoinSums(pound=200):
 			Ways[x] += Ways[x - Coin]
 	return Ways[pound]
 
-print CoinSums()
-
 #	ID 	32
 #	Pandigital products
 #	Find the sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital.
 def PandigitalProducts():
 	AllDigit = [str(x) for x in range(1,10)]
 	Permutation = permutations(AllDigit)
-	PandigitalProducts = 0
+	PandigitalProducts = Set([])
 	for Number in Permutation:
 		Product = ConvertListToInt(Number[5:])
 		for Position in range(1,5):
 			Multiplicand = ConvertListToInt(Number[:Position])
 			Mulitplier = ConvertListToInt(Number[Position:5])
 			if Multiplicand * Mulitplier == Product:
-				PandigitalProducts += Product
+				PandigitalProducts.add(Product)
 				break
-	return PandigitalProducts
+	return sum(PandigitalProducts)
+
+print PandigitalProducts()
