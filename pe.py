@@ -10,6 +10,9 @@ import re
 def Tree(): 
 	return defaultdict(Tree)
 
+def ConvertListToInt(inputList):
+	return int(''.join(inputList))
+
 def IsPrime(number):
 	if number < 2:
 		return False
@@ -424,7 +427,7 @@ def AmicableNumbers(number=10000):
 #	ID 	22
 #	Names scores
 #	Find the total of all the name scores in the file, "names.txt". The name scores is the alphabetical value of a name multiplied by its position in the list.
-def NamesScores(fileName="names.txt"):
+def NamesScores(fileName='names.txt'):
 	NameList = []
 	Result = 0
 	with open(fileName) as FileReader:
@@ -501,7 +504,7 @@ def ReciprocalCycles(limit=1000):
 	Regex = re.compile('^([0-9]+)\\1+$')
 	for Prime in PrimeList[::-1]:
 		CyclicNumber = (pow(Base, Prime - 1) - 1) / Prime
-		if not Regex.match(str(CyclicNumber).replace("0","")):
+		if not Regex.match(str(CyclicNumber).replace('0','')):
 			return Prime
 	return
 
@@ -566,3 +569,34 @@ def DigitFifthPowers():
 		if Counter == SumPoweredStringCounter:
 			SumDigitNthPowers += Counter
 	return SumDigitNthPowers
+
+#	ID  31
+#	Coin sums
+#	How many different ways can 2 pound be made using any number of coins?
+def CoinSums(pound=200):
+	Coins = [1, 2, 5, 10, 20, 50, 100, 200]
+	Ways = [0 for x in range(pound+1)]
+	Ways[0] = 1
+	for Coin in Coins:
+		for x in range(Coin, pound + 1):
+			Ways[x] += Ways[x - Coin]
+	return Ways[pound]
+
+print CoinSums()
+
+#	ID 	32
+#	Pandigital products
+#	Find the sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital.
+def PandigitalProducts():
+	AllDigit = [str(x) for x in range(1,10)]
+	Permutation = permutations(AllDigit)
+	PandigitalProducts = 0
+	for Number in Permutation:
+		Product = ConvertListToInt(Number[5:])
+		for Position in range(1,5):
+			Multiplicand = ConvertListToInt(Number[:Position])
+			Mulitplier = ConvertListToInt(Number[Position:5])
+			if Multiplicand * Mulitplier == Product:
+				PandigitalProducts += Product
+				break
+	return PandigitalProducts
