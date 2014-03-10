@@ -605,33 +605,17 @@ def PandigitalProducts():
 #	Find the value of denominator product of four non trivial curious fraction in its lowest common terms.  
 def DigitCancelingFractions():
 	NominatorProduct = DenominatorProduct = 1
-	NominatorProductSet = Set([])
-	DenominatorProductSet = Set([])
-	for CancelledNominator in range(1, 10):
-		for CancelledDenominator in range(1, 10):
-			for CancelledNumber in range(1, 10):
-				Nominator = CancelledNumber * 10 + CancelledNominator
-				Nominator2 = CancelledNominator * 10 + CancelledNumber
-				Denominator = CancelledNumber * 10 + CancelledDenominator
-				Denominator2 = CancelledDenominator * 10 + CancelledNumber
-				CancelledFraction = CancelledNominator / float(CancelledDenominator)
-				if CancelledFraction != 1: 
-					if Nominator < Denominator and Nominator / float(Denominator) == CancelledFraction:
-						NominatorProductSet.add(Nominator)
-						DenominatorProductSet.add(Denominator)
-					if Nominator2 < Denominator and Nominator2 / float(Denominator) == CancelledFraction:
-						NominatorProductSet.add(Nominator2)
-						DenominatorProductSet.add(Denominator)
-					if Nominator < Denominator2 and Nominator / float(Denominator2) == CancelledFraction:
-						NominatorProductSet.add(Nominator)
-						DenominatorProductSet.add(Denominator2)
-					if Nominator2 < Denominator2 and Nominator2 / float(Denominator2) == CancelledFraction:
-						NominatorProductSet.add(Nominator2)
-						DenominatorProductSet.add(Denominator2)
-	for Nominator in NominatorProductSet:
-		NominatorProduct *= Nominator
-	for Denominator in DenominatorProductSet:
-		DenominatorProduct *= Denominator
+	for Denominator in range(11, 100):
+		if Denominator % 10 != 0:
+			for Nominator in range(11, 100):
+				if Nominator % 10 != 0 and Nominator < Denominator:
+					DenominatorString = str(Denominator)
+					NominatorString = str(Nominator)
+					NominatorDividedByDenominator = Nominator / float(Denominator)
+					if len(DenominatorString) == 2 and len(NominatorString) == 2:
+						if 	(NominatorString[0] == DenominatorString[0] and float(NominatorString[1]) / float(DenominatorString[1]) == NominatorDividedByDenominator) or (NominatorString[1] == DenominatorString[0] and float(NominatorString[0]) / float(DenominatorString[1]) == NominatorDividedByDenominator) or (NominatorString[0] == DenominatorString[1] and float(NominatorString[1]) / float(DenominatorString[0]) == NominatorDividedByDenominator) or (NominatorString[1] == DenominatorString[1] and float(NominatorString[0]) / float(DenominatorString[0]) == NominatorDividedByDenominator):
+							NominatorProduct *= Nominator
+							DenominatorProduct *= Denominator
 	return Fraction(NominatorProduct, DenominatorProduct).denominator
 
 print DigitCancelingFractions()
