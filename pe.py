@@ -1,5 +1,6 @@
 from collections import defaultdict
 from datetime import date
+from fractions import Fraction
 from itertools import combinations
 from itertools import permutations
 from math import factorial
@@ -20,7 +21,7 @@ def IsPrime(number):
 		return True
 	if not number & 1:
 		return False
-	for Counter in range(3, int(number**0.5)+1, 2):
+	for Counter in range(3, int(number ** 0.5) + 1, 2):
 		if number % Counter == 0:
 			return False
 	return True
@@ -50,7 +51,7 @@ def GeneratePrimes(size):
 	size -= 1
 	Number = 3
 	while size:
-		IsPrime = True;
+		IsPrime = True
 		for Prime in PrimeList:
 			if Number % Prime == 0:
 				IsPrime = False
@@ -58,8 +59,8 @@ def GeneratePrimes(size):
 		if IsPrime:
 			PrimeList.append(Number)
 			size -= 1
-		Number += 2;
-	return PrimeList;
+		Number += 2
+	return PrimeList
 
 def GeneratePrimes(fromX, toY):
 	PrimeList = []
@@ -70,7 +71,7 @@ def GeneratePrimes(fromX, toY):
 	Counter = 1
 	StartingIndex = 0
 	while Number <= toY:
-		IsPrime = True;
+		IsPrime = True
 		for Prime in PrimeList:
 			if Number % Prime == 0:
 				IsPrime = False
@@ -80,8 +81,8 @@ def GeneratePrimes(fromX, toY):
 			Counter += 1
 			if Number < fromX:
 				StartingIndex = Counter 
-		Number += 2;
-	return PrimeList[StartingIndex:];
+		Number += 2
+	return PrimeList[StartingIndex:]
 
 def NumberOfDivisors(number):
 	if number < 1:
@@ -89,8 +90,8 @@ def NumberOfDivisors(number):
 	if number == 1:
 		return 1
 	Counter = 0
-	for Divisors in range(2,int(number**0.5)+1):
-		if number%Divisors == 0:
+	for Divisors in range(2,int(number ** 0.5) + 1):
+		if number % Divisors == 0:
 			Counter += 1
 	return (Counter+1)*2
 
@@ -102,10 +103,10 @@ def NthTriangleNumber(triangleNumber):
 		return
 	a = 1
 	b = 1
-	c = -2*triangleNumber
-	d = b**2 - 4 * a * c # n**2 + n - 2*TriangleLevel = 0
+	c = -2 * triangleNumber
+	d = b ** 2 - 4 * a * c # n**2 + n - 2*TriangleLevel = 0
 	if d > 0:
-		Root = (-b + sqrt((b**2) - (4*a*c))) / (2*a)
+		Root = (-b + sqrt((b ** 2) - (4 * a * c))) / (2 * a)
 		if Root % 1 == 0:
 			return int(Root)
 	return
@@ -119,11 +120,11 @@ def SumOfDivisors(number):
 	if number == 1:
 		return 1
 	SumOfDivisors = 1
-	for Divisors in range(2,int(number**0.5)+1):
-		if number%Divisors == 0:
+	for Divisors in range(2, int(number ** 0.5) + 1):
+		if number % Divisors == 0:
 			SumOfDivisors += Divisors 
-			if Divisors != number/Divisors:
-				SumOfDivisors += number/Divisors
+			if Divisors != number / Divisors:
+				SumOfDivisors += number / Divisors
 	return SumOfDivisors 
 
 #	ID	1
@@ -131,9 +132,9 @@ def SumOfDivisors(number):
 #	Find the sum of all the multiples of 3 or 5
 def MultiplesOf3And5(number=1000):
 	MultiplesOf3And5 = 0
-	for Counter in range(0,number,3):
+	for Counter in range(0, number, 3):
 		MultiplesOf3And5 += Counter
-	for Counter in range(0,number,5):
+	for Counter in range(0, number, 5):
 		if Counter % 3 != 0:
 			MultiplesOf3And5 += Counter
 	return MultiplesOf3And5
@@ -159,7 +160,7 @@ def LargestPrimeFactor(number=600851475143):
 	if IsPrime(number):
 		return number
 	LargestPrimeFactor = 2
-	for Counter in range(3, int(number**0.5)+1, 2):
+	for Counter in range(3, int(number ** 0.5) + 1, 2):
 		if IsPrime(Counter) and number % Counter == 0:
 			LargestPrimeFactor = Counter
 	return LargestPrimeFactor
@@ -174,13 +175,13 @@ def LargestPalindromeProduct(digit=3):
 		HalfOfMaxPalindromeNumber += 9
 		HalfOfMaxPalindromeNumber *= 10
 	HalfOfMaxPalindromeNumber += 8
-	for Counter in range(int(HalfOfMaxPalindromeNumber), 10**(digit-1), -1):
+	for Counter in range(int(HalfOfMaxPalindromeNumber), 10 ** (digit - 1), -1):
 		PalindromeString = str(Counter) + ReverseString(str(Counter))
 		PalindromeNumber = int(PalindromeString)
 		if not IsPrime(PalindromeNumber):
-			for factor in range(10**(digit-1)+1, 10**(digit)-1):
+			for factor in range(10 ** (digit - 1) + 1, 10 ** (digit) - 1):
 				if PalindromeNumber % factor == 0:
-					factor2 = PalindromeNumber/factor
+					factor2 = PalindromeNumber / factor
 					if len(str(factor2)) == digit:
 						return PalindromeNumber
 	return
@@ -192,7 +193,7 @@ def SmallestMultiple(number=20):
 	MaxPrimeFactorsDictionary = {}
 	PrimeFactorsCount = {}
 	SmallestMultiple = 1
-	for Counter in range(2,number+1):
+	for Counter in range(2, number + 1):
 		for PrimeFactor in GeneratePrimeFactors(Counter): 
 			PrimeFactorsCount[PrimeFactor] = PrimeFactorsCount[PrimeFactor] + 1 if PrimeFactorsCount.has_key(PrimeFactor) else 1
 		for Key in PrimeFactorsCount:
@@ -209,8 +210,8 @@ def SmallestMultiple(number=20):
 #	Find the difference between the sum of the squares of the first hundred natural numbers and the square of the sum
 def SumSquareDifference(number=100):
 	SumSquareDifference = 0
-	for Combination in combinations(range(number+1),2):
-		SumSquareDifference += 2*Combination[0]*Combination[1]
+	for Combination in combinations(range(number + 1),2):
+		SumSquareDifference += 2 * Combination[0] * Combination[1]
 	return SumSquareDifference
 
 #	ID	7
@@ -227,10 +228,10 @@ def LargestProductInASeries(consecutiveDigits, number=73167176531330624919225119
 	Length = len(str(number))
 	LargestProductInASeries = 0
 	StringNumberList = list(str(number))
-	for index in range(0, Length-consecutiveDigits+1):
+	for index in range(0, Length - consecutiveDigits + 1):
 		Product = 1
 		for counter in range(0, consecutiveDigits):
-			Product *= int(StringNumberList[index+counter])
+			Product *= int(StringNumberList[index + counter])
 		ProductList.append(Product)
 	for Product in ProductList:
 		if Product > LargestProductInASeries:
@@ -243,9 +244,9 @@ def LargestProductInASeries(consecutiveDigits, number=73167176531330624919225119
 def SpecialPythagoreanTriple(number=1000):
 	for a in range(1, number):
 		for b in range(1, number):
-			c = (a**2 + b**2)**(0.5)
+			c = (a ** 2 + b ** 2) ** (0.5)
 			if (a + b + c) == number:
-				return a*b*c
+				return a * b * c
 	return
 
 #	ID 	10
@@ -257,12 +258,12 @@ def SummationOfPrimes(number=2000000):
 	SummationOfPrimes = 0
 	PrimeList = list(range(3,number,2))
 	SquaredNumberIndex = 0
-	SquaredNumber = int(number**0.5) + 1
+	SquaredNumber = int(number ** 0.5) + 1
 	for Counter in range(len(PrimeList)):
 		if PrimeList[Counter] > SquaredNumber:
 			SquaredNumberIndex = Counter
 			break
-	for Index in range(0,SquaredNumberIndex+1):
+	for Index in range(0, SquaredNumberIndex + 1):
 		Length = len(PrimeList)
 		Index2 = Index + 1
 		while Index2 < Length:
@@ -280,18 +281,18 @@ def SummationOfPrimes(number=2000000):
 #	Find the greatest product of four adjacent numbers in the any direction in the 20x20 grid
 def LargestProductInAGrid(adjacentNumbers, grid=[[8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],[49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],[81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30, 3, 49, 13, 36, 65],[52, 70, 95, 23, 4, 60, 11, 42, 69, 24, 68, 56, 1, 32, 56, 71, 37, 2, 36, 91],[22, 31, 16, 71, 51, 67, 63, 89, 41, 92, 36, 54, 22, 40, 40, 28, 66, 33, 13, 80],[24, 47, 32, 60, 99, 3, 45, 2, 44, 75, 33, 53, 78, 36, 84, 20, 35, 17, 12, 50],[32, 98, 81, 28, 64, 23, 67, 10, 26, 38, 40, 67, 59, 54, 70, 66, 18, 38, 64, 70],[67, 26, 20, 68, 2, 62, 12, 20, 95, 63, 94, 39, 63, 8, 40, 91, 66, 49, 94, 21],[24, 55, 58, 5, 66, 73, 99, 26, 97, 17, 78, 78, 96, 83, 14, 88, 34, 89, 63, 72],[21, 36, 23, 9, 75, 0, 76, 44, 20, 45, 35, 14, 0, 61, 33, 97, 34, 31, 33, 95],[78, 17, 53, 28, 22, 75, 31, 67, 15, 94, 3, 80, 4, 62, 16, 14, 9, 53, 56, 92],[16, 39, 5, 42, 96, 35, 31, 47, 55, 58, 88, 24, 0, 17, 54, 24, 36, 29, 85, 57],[86, 56, 0, 48, 35, 71, 89, 7, 5, 44, 44, 37, 44, 60, 21, 58, 51, 54, 17, 58],[19, 80, 81, 68, 5, 94, 47, 69, 28, 73, 92, 13, 86, 52, 17, 77, 4, 89, 55, 40],[04, 52, 8, 83, 97, 35, 99, 16, 7, 97, 57, 32, 16, 26, 26, 79, 33, 27, 98, 66],[88, 36, 68, 87, 57, 62, 20, 72, 3, 46, 33, 67, 46, 55, 12, 32, 63, 93, 53, 69],[04, 42, 16, 73, 38, 25, 39, 11, 24, 94, 72, 18, 8, 46, 29, 32, 40, 62, 76, 36],[20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 59, 85, 74, 4, 36, 16],[20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],[01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]]):
 	LargestProductInAGrid = 0
-	for CoordinateX in range(0,20):
-		for CoordinateY in range(0,20):
+	for CoordinateX in range(0, 20):
+		for CoordinateY in range(0, 20):
 			ProductA = ProductB = ProductC = ProductD = 1
 			for Next in range(0,adjacentNumbers):
 				if CoordinateX + Next < 20:
-					ProductA *= grid[CoordinateX+Next][CoordinateY]
+					ProductA *= grid[CoordinateX + Next][CoordinateY]
 				if max(CoordinateX,CoordinateY) + Next < 20:
-					ProductB *= grid[CoordinateX+Next][CoordinateY+Next]
+					ProductB *= grid[CoordinateX + Next][CoordinateY + Next]
 				if CoordinateY + Next < 20:
 					ProductC *= grid[CoordinateX][CoordinateY+Next]
 				if CoordinateX + Next < 20 and CoordinateY - Next >= 0:
-					ProductD *= grid[CoordinateX+Next][CoordinateY-Next]
+					ProductD *= grid[CoordinateX + Next][CoordinateY - Next]
 			MaxProduct = max(ProductA, ProductB, ProductC, ProductD)
 			if MaxProduct > LargestProductInAGrid:
 				LargestProductInAGrid = MaxProduct
@@ -337,7 +338,7 @@ def LongestCollatzSequence(number=1000000):
 #	Lattice paths
 #	Find the number of route are there through a 20x20 grid
 def LatticePaths(gridSize=20):
-	return factorial(gridSize * 2)/pow(factorial(gridSize), 2);
+	return factorial(gridSize * 2)/pow(factorial(gridSize), 2)
 
 #	ID 	16
 #	Power digit sum
@@ -584,7 +585,7 @@ def CoinSums(pound=200):
 
 #	ID 	32
 #	Pandigital products
-#	Find the sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital.
+#	Find the sum of all products whose multipilcand/multiplier/product identity can be written as a 1 through 9 pandigital.
 def PandigitalProducts():
 	AllDigit = [str(x) for x in range(1,10)]
 	Permutation = permutations(AllDigit)
@@ -599,4 +600,38 @@ def PandigitalProducts():
 				break
 	return sum(PandigitalProducts)
 
-print PandigitalProducts()
+#	ID 	33
+#	Digit canceling fractions
+#	Find the value of denominator product of four non trivial curious fraction in its lowest common terms.  
+def DigitCancelingFractions():
+	NominatorProduct = DenominatorProduct = 1
+	NominatorProductSet = Set([])
+	DenominatorProductSet = Set([])
+	for CancelledNominator in range(1, 10):
+		for CancelledDenominator in range(1, 10):
+			for CancelledNumber in range(1, 10):
+				Nominator = CancelledNumber * 10 + CancelledNominator
+				Nominator2 = CancelledNominator * 10 + CancelledNumber
+				Denominator = CancelledNumber * 10 + CancelledDenominator
+				Denominator2 = CancelledDenominator * 10 + CancelledNumber
+				CancelledFraction = CancelledNominator / float(CancelledDenominator)
+				if CancelledFraction != 1: 
+					if Nominator < Denominator and Nominator / float(Denominator) == CancelledFraction:
+						NominatorProductSet.add(Nominator)
+						DenominatorProductSet.add(Denominator)
+					if Nominator2 < Denominator and Nominator2 / float(Denominator) == CancelledFraction:
+						NominatorProductSet.add(Nominator2)
+						DenominatorProductSet.add(Denominator)
+					if Nominator < Denominator2 and Nominator / float(Denominator2) == CancelledFraction:
+						NominatorProductSet.add(Nominator)
+						DenominatorProductSet.add(Denominator2)
+					if Nominator2 < Denominator2 and Nominator2 / float(Denominator2) == CancelledFraction:
+						NominatorProductSet.add(Nominator2)
+						DenominatorProductSet.add(Denominator2)
+	for Nominator in NominatorProductSet:
+		NominatorProduct *= Nominator
+	for Denominator in DenominatorProductSet:
+		DenominatorProduct *= Denominator
+	return Fraction(NominatorProduct, DenominatorProduct).denominator
+
+print DigitCancelingFractions()
