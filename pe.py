@@ -618,4 +618,15 @@ def DigitCancelingFractions():
 							DenominatorProduct *= Denominator
 	return Fraction(NominatorProduct, DenominatorProduct).denominator
 
-print DigitCancelingFractions()
+#	ID 	34
+#	Digit factorial
+#	Find the sum of all numbers which are equal to the sum of the factorial of their digits
+def DigitFactorial():
+	SumDigitFactorial = 0
+	for Number in range(3, factorial(9) * 7):
+		NumberString = str(Number)
+		if Number == sum([factorial(int(Digit)) for Digit in NumberString]):
+			SumDigitFactorial += Number
+	return SumDigitFactorial
+
+print DigitFactorial()
