@@ -114,6 +114,17 @@ def NthTriangleNumber(triangleNumber):
 def ReverseString(string):
 	return string[::-1]
 
+def RotateString(inputString, rotateBy):
+	return inputString[-rotateBy:] + inputString[0:-rotateBy] if rotateBy < len(inputString) else inputString
+
+def SameDigit(Number):
+	NumberString = str(Number)
+	SameDigit = NumberString[0]
+	for Digit in NumberString:
+		if SameDigit != Digit:
+			return False
+	return True
+
 def SumOfDivisors(number):
 	if number < 1:
 		return 0
@@ -531,12 +542,12 @@ def QuadraticPrimes(limit=1000):
 #	ID 	28
 #	Number spiral diagonals
 #	What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral formed in the same way?
-def NumberSpiralDiagonals(DiagonalLength=1001):
-	if DiagonalLength < 1 or DiagonalLength % 2 == 0: 
+def NumberSpiralDiagonals(diagonalLength=1001):
+	if diagonalLength < 1 or diagonalLength % 2 == 0: 
 		return 
-	if DiagonalLength == 1:
+	if diagonalLength == 1:
 		return 1
-	SpiralLevel = (DiagonalLength - 1) / 2
+	SpiralLevel = (diagonalLength - 1) / 2
 	SpiralNumber = [1,1,1,1]
 	SumSpiralDiagonals = 1
 	for Level in range(SpiralLevel):
@@ -629,4 +640,22 @@ def DigitFactorial():
 			SumDigitFactorial += Number
 	return SumDigitFactorial
 
-print DigitFactorial()
+#	ID 	35
+#	Circular primes
+#	Find the number of circular primes that are below one million
+def CircularPrimes(limit=pow(10, 6)):
+	CircularPrimes = 0
+	CircularPrimesCount = [0 for x in range(0, len(str(limit)))]
+	for Number in range(3, limit, 2):
+		if IsPrime(Number):
+			NumberStringLength = len(str(Number))
+			Counter = 0
+			for RotateBy in range(1, NumberStringLength + 1):
+				if not IsPrime(int(RotateString(str(Number), RotateBy))):
+					break
+				Counter += 1
+			if Counter == NumberStringLength:
+				CircularPrimes = CircularPrimes + NumberStringLength if SameDigit(Number) else CircularPrimes + 1
+	return CircularPrimes
+
+print CircularPrimes()
