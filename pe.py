@@ -14,6 +14,12 @@ def Tree():
 def ConvertListToInt(inputList):
 	return int(''.join(inputList))
 
+def IsPalindrome(inputString):
+	PivotLength = len(inputString) / 2
+	if PivotLength == 0:
+		return True
+	return inputString[:PivotLength] == ReverseString(inputString[-PivotLength:])
+
 def IsPrime(number):
 	if number < 2:
 		return False
@@ -658,4 +664,20 @@ def CircularPrimes(limit=pow(10, 6)):
 				CircularPrimes = CircularPrimes + NumberStringLength if SameDigit(Number) else CircularPrimes + 1
 	return CircularPrimes
 
-print CircularPrimes()
+#	ID 	36
+#	Double-base palindromes
+#	Find the sum of all numbers, less than one million, which are palindromic in base 10 and base 2
+def DoubleBasePalindromes(limit=pow(10, 6)):
+	Result = 0
+	LimitBinary = bin(limit)[2:]
+	Max = LimitBinary[:len(LimitBinary) / 2]
+	for Number in range(1, int(Max, 2) + 1):
+		PalindromeBinaryOdd = bin(Number)[2:] + ReverseString(bin(Number)[2:][:-1])
+		PalindromeBinaryEven = bin(Number)[2:] + ReverseString(bin(Number)[2:])
+		if IsPalindrome(str(int(PalindromeBinaryOdd, 2))):
+			Result += int(PalindromeBinaryOdd, 2)
+		if IsPalindrome(str(int(PalindromeBinaryEven, 2))):
+			Result += int(PalindromeBinaryEven, 2)
+	return Result
+
+print DoubleBasePalindromes()
