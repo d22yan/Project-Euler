@@ -76,6 +76,8 @@ def GeneratePrimes(fromX, toY):
 	Number = 3
 	Counter = 1
 	StartingIndex = 0
+	if fromX == 3:
+		StartingIndex = 1
 	while Number <= toY:
 		IsPrime = True
 		for Prime in PrimeList:
@@ -88,6 +90,7 @@ def GeneratePrimes(fromX, toY):
 			if Number < fromX:
 				StartingIndex = Counter 
 		Number += 2
+	print StartingIndex
 	return PrimeList[StartingIndex:]
 
 def NumberOfDivisors(number):
@@ -680,4 +683,30 @@ def DoubleBasePalindromes(limit=pow(10, 6)):
 			Result += int(PalindromeBinaryEven, 2)
 	return Result
 
-print DoubleBasePalindromes()
+#	ID 	37
+#	Truncatable primes
+#	Find the sum of the only eleven primes that are both truncatable from left to right and right to left
+def TruncatablePrimes():
+	Counter = 0
+	Result = 0
+	PrimeCandidates = [3, 7]
+	TruncatableNumbers = [1, 2, 3, 5, 7, 9]
+	while Counter < 11:
+		Buffer = list(PrimeCandidates)
+		PrimeCandidates = []
+		for PrimeCandidate in Buffer:
+			if IsPrime(PrimeCandidate):
+				Flag = True
+				for Index in range(1, len(str(PrimeCandidate)) + 1):
+					if not IsPrime(int(str(PrimeCandidate)[:Index])):
+						Flag = False
+						break
+				if Flag and PrimeCandidate > 7:
+					print PrimeCandidate
+					Result += PrimeCandidate
+					Counter += 1
+				for TruncatableNumber in TruncatableNumbers:
+					PrimeCandidates.append(TruncatableNumber * pow(10, int(len(str(PrimeCandidate)))) + PrimeCandidate)
+	return Result
+
+print TruncatablePrimes()
