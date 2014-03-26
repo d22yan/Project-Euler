@@ -11,7 +11,7 @@ import re
 def Tree(): 
 	return defaultdict(Tree)
 
-def ConvertListToInt(inputList):
+def ConvertStringListToInt(inputList):
 	return int(''.join(inputList))
 
 def IsPalindrome(inputString):
@@ -119,6 +119,11 @@ def NthTriangleNumber(triangleNumber):
 		if Root % 1 == 0:
 			return int(Root)
 	return
+
+def ReverseChained(chained):
+	List = list(chained)
+	List.reverse()
+	return List
 
 def ReverseString(string):
 	return string[::-1]
@@ -611,10 +616,10 @@ def PandigitalProducts():
 	Permutation = permutations(AllDigit)
 	PandigitalProducts = Set([])
 	for Number in Permutation:
-		Product = ConvertListToInt(Number[5:])
+		Product = ConvertStringListToInt(Number[5:])
 		for Position in range(1,5):
-			Multiplicand = ConvertListToInt(Number[:Position])
-			Mulitplier = ConvertListToInt(Number[Position:5])
+			Multiplicand = ConvertStringListToInt(Number[:Position])
+			Mulitplier = ConvertStringListToInt(Number[Position:5])
 			if Multiplicand * Mulitplier == Product:
 				PandigitalProducts.add(Product)
 				break
@@ -709,4 +714,17 @@ def TruncatablePrimes():
 					PrimeCandidates.append(TruncatableNumber * pow(10, int(len(str(PrimeCandidate)))) + PrimeCandidate)
 	return Result
 
-print TruncatablePrimes()
+#	ID 	38
+#	Pandigital multiples
+#	What is the largest 1 to 9 pandigital 9-digit number that can be formed as the concatenated product of an integer with (1,2, ... , n) where n > 1?
+def PandigitalMultiples():
+	Result = 0
+	Permutations = ReverseChained(permutations([str(x) for x in range(1,9)]))
+	for Permutation in Permutations:
+		PandigitalString = str(9) + ''.join(Permutation)
+		if (float(PandigitalString[4:]) / float(PandigitalString[:4]) == 2.0) or ((float(PandigitalString[2:5]) / float(PandigitalString[:2]) == 2.0) and (float(PandigitalString[5:9]) / float(PandigitalString[:2]) == 2.0)):
+			Result = int(PandigitalString)
+			break
+	return Result
+
+print PandigitalMultiples()
