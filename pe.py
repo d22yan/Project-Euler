@@ -707,7 +707,6 @@ def TruncatablePrimes():
 						Flag = False
 						break
 				if Flag and PrimeCandidate > 7:
-					print PrimeCandidate
 					Result += PrimeCandidate
 					Counter += 1
 				for TruncatableNumber in TruncatableNumbers:
@@ -727,4 +726,22 @@ def PandigitalMultiples():
 			break
 	return Result
 
-print PandigitalMultiples()
+#	ID 	39
+#	Integer right triangles
+#	For which value of perimeter greater or equal to 1000 of a right angle triangle, is the number of solutions maximised?
+def IntegerRightTriangles(limit=1000):
+	ChosenPerimeter = 0
+	MaxSolution = 0
+	for Perimeter in range(1, limit + 1):
+		Counter = 0
+		for A in range(1, int((Perimeter / (2 + sqrt(2))) + 1)):
+			B = (pow(Perimeter, 2) - 2 * Perimeter * A) / (2 * Perimeter - 2 * A)
+			if float(B).is_integer() and sqrt(pow(A, 2) + pow(B, 2)).is_integer():				
+				Counter += 1
+		if Counter > MaxSolution:
+			ChosenPerimeter = Perimeter
+			MaxSolution = Counter
+	return ChosenPerimeter
+
+print IntegerRightTriangles()
+
