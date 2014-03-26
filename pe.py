@@ -743,5 +743,18 @@ def IntegerRightTriangles(limit=1000):
 			MaxSolution = Counter
 	return ChosenPerimeter
 
-print IntegerRightTriangles()
+#	ID 	40
+#	Champernowne's constant
+#	If dn represents the nth digit of the irrational decimal fraction created by concatenating positive integers, find the value of the following expression. d1 * d10 * d100 * d1000 * d10000 * d100000 * d1000000
+def ChampernownesConstant(maxDigit=6):
+	Result = 1
+	Counter = 0
+	ChampernownesConstantString = ''
+	while (len(ChampernownesConstantString) < pow(10, maxDigit)):
+		Counter += 1
+		ChampernownesConstantString += str(Counter)
+	for Number in range(0, maxDigit + 1):
+		Result *= int(ChampernownesConstantString[pow(10, Number) - 1])
+	return Result
 
+print ChampernownesConstant()
