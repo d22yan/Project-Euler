@@ -723,8 +723,7 @@ def PandigitalMultiples():
 		PandigitalString = str(9) + ''.join(Permutation)
 		if (float(PandigitalString[4:]) / float(PandigitalString[:4]) == 2.0) or ((float(PandigitalString[2:5]) / float(PandigitalString[:2]) == 2.0) and (float(PandigitalString[5:9]) / float(PandigitalString[:2]) == 2.0)):
 			Result = int(PandigitalString)
-			break
-	return Result
+			return Result
 
 #	ID 	39
 #	Integer right triangles
@@ -757,4 +756,20 @@ def ChampernownesConstant(maxDigit=6):
 		Result *= int(ChampernownesConstantString[pow(10, Number) - 1])
 	return Result
 
-print ChampernownesConstant()
+def ConvertIntListToInt(numberList):
+    Number = ''.join(map(str, numberList))
+    return int(Number)
+
+#	ID 	41
+#	Pandigital prime
+#	What is the largest n-digit pandigital prime that exists?
+def PandigitalPrime():
+	for MaxNDigit in range(9, 0, -1):
+		Digits = [x for x in range(1, MaxNDigit)]
+		Permutations = ReverseChained(permutations(Digits))
+		for Permutation in Permutations:
+			PandigitalPrime = ConvertIntListToInt(Permutation)
+			if IsPrime(PandigitalPrime):
+				return PandigitalPrime
+
+print PandigitalPrime()
