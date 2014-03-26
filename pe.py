@@ -11,6 +11,10 @@ import re
 def Tree(): 
 	return defaultdict(Tree)
 
+def ConvertIntListToInt(numberList):
+    Number = ''.join(map(str, numberList))
+    return int(Number)
+
 def ConvertStringListToInt(inputList):
 	return int(''.join(inputList))
 
@@ -90,7 +94,6 @@ def GeneratePrimes(fromX, toY):
 			if Number < fromX:
 				StartingIndex = Counter 
 		Number += 2
-	print StartingIndex
 	return PrimeList[StartingIndex:]
 
 def NumberOfDivisors(number):
@@ -568,7 +571,6 @@ def NumberSpiralDiagonals(diagonalLength=1001):
 		for Direction in range(4):
 			SpiralNumber[Direction] += 8 * Level + 2 * (Direction + 1)
 			SumSpiralDiagonals += SpiralNumber[Direction]
-			print SpiralNumber[Direction]
 	return SumSpiralDiagonals
 
 #	ID 	29
@@ -756,10 +758,6 @@ def ChampernownesConstant(maxDigit=6):
 		Result *= int(ChampernownesConstantString[pow(10, Number) - 1])
 	return Result
 
-def ConvertIntListToInt(numberList):
-    Number = ''.join(map(str, numberList))
-    return int(Number)
-
 #	ID 	41
 #	Pandigital prime
 #	What is the largest n-digit pandigital prime that exists?
@@ -788,4 +786,23 @@ def CodedTriangleNumbers(fileName='words.txt'):
 			Counter += 1
 	return Counter
 
-print CodedTriangleNumbers()
+#	ID 	43
+#	Sub-string divisibility
+#	Find the sum of all 0 to 9 pandigital numbers with this property.
+def SubStringDivisibility():
+	Counter = 0
+	DivisiblePrimes = GeneratePrimes(2,17)
+	Permutations = permutations([str(x) for x in range(0, 10)])
+	for Permutation in Permutations:
+		Flag = True
+		Index = 1
+		PandigitalString = ''.join(Permutation)
+		for DivisiblePrime in DivisiblePrimes:
+			if int(PandigitalString[Index:Index + 3]) % DivisiblePrime != 0:
+				Flag = False
+			Index += 1
+		if Flag:
+			Counter += int(PandigitalString)
+	return Counter
+
+print SubStringDivisibility()
