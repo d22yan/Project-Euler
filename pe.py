@@ -772,4 +772,20 @@ def PandigitalPrime():
 			if IsPrime(PandigitalPrime):
 				return PandigitalPrime
 
-print PandigitalPrime()
+#	ID 	42
+#	Coded triangle numbers
+#	Using words.txt (right click and 'Save Link/Target As...'), a 16K text file containing nearly two-thousand common English words, how many are triangle words?
+def CodedTriangleNumbers(fileName='words.txt'):
+	NameList = []
+	Counter = 0
+	with open(fileName) as FileReader:
+		NameList = FileReader.readline().replace('"','').upper().split(',')
+	for Index in range(len(NameList)):
+		CharacterSum = 0
+		for Character in NameList[Index]:
+			CharacterSum += ord(Character) - 64
+		if CharacterSum > 0 and sqrt(1 + 8 * CharacterSum).is_integer():
+			Counter += 1
+	return Counter
+
+print CodedTriangleNumbers()
