@@ -18,23 +18,11 @@ def ConvertIntListToInt(numberList):
 def ConvertStringListToInt(inputList):
 	return int(''.join(inputList))
 
-def IsPalindrome(inputString):
-	PivotLength = len(inputString) / 2
-	if PivotLength == 0:
-		return True
-	return inputString[:PivotLength] == ReverseString(inputString[-PivotLength:])
+def FormulaPentagon(Index):
+	return Index * (3 * Index - 1) / 2
 
-def IsPrime(number):
-	if number < 2:
-		return False
-	if number == 2:
-		return True
-	if not number & 1:
-		return False
-	for Counter in range(3, int(number ** 0.5) + 1, 2):
-		if number % Counter == 0:
-			return False
-	return True
+def FormulaPentagonInverse(Index):
+	return (1 + sqrt(24 * Index + 1)) / 6
 
 def GeneratePrimeFactors(number):
 	PrimeFactors = []
@@ -95,6 +83,24 @@ def GeneratePrimes(fromX, toY):
 				StartingIndex = Counter 
 		Number += 2
 	return PrimeList[StartingIndex:]
+
+def IsPalindrome(inputString):
+	PivotLength = len(inputString) / 2
+	if PivotLength == 0:
+		return True
+	return inputString[:PivotLength] == ReverseString(inputString[-PivotLength:])
+
+def IsPrime(number):
+	if number < 2:
+		return False
+	if number == 2:
+		return True
+	if not number & 1:
+		return False
+	for Counter in range(3, int(number ** 0.5) + 1, 2):
+		if number % Counter == 0:
+			return False
+	return True
 
 def NumberOfDivisors(number):
 	if number < 1:
@@ -805,4 +811,20 @@ def SubStringDivisibility():
 			Counter += int(PandigitalString)
 	return Counter
 
-print SubStringDivisibility()
+#	ID 	44
+#	Pentagon numbers
+#	Find the pair of pentagonal numbers, Pj and Pk, for which their sum and difference are pentagonal and D = |Pk - Pj| is minimised; what is the value of D?
+def PentagonNumbers():
+	IndexK = 0
+	IndexJ = 0
+	while True:
+		IndexK += 1
+		IndexJ = IndexK
+		while IndexJ > 1:
+			IndexJ -= 1
+			PentagonSum = FormulaPentagon(IndexK) + FormulaPentagon(IndexJ)
+			PentagonDifference = FormulaPentagon(IndexK) - FormulaPentagon(IndexJ)
+			if FormulaPentagonInverse(PentagonSum).is_integer() and FormulaPentagonInverse(PentagonDifference).is_integer():
+				return int(PentagonDifference)
+
+print PentagonNumbers()
