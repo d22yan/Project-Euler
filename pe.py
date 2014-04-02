@@ -885,4 +885,15 @@ def DistinctPrimesFactors(consecutive=4):
 		if Counter == consecutive:
 			return ConsecutiveInteger - consecutive + 1
 
-print DistinctPrimesFactors()
+#	ID 	48
+#	Self oiwers
+#	Find the last ten digits of the sum of positive intergers to the exponent itself.
+def SelfPowers(Limit=pow(10, 3)):
+	Result = 0
+	Number = 0
+	while Number < Limit:
+		Number += 1
+		Result += pow(Number, Number)
+	return str(Result)[-10:]
+
+print SelfPowers()
