@@ -18,11 +18,23 @@ def ConvertIntListToInt(numberList):
 def ConvertStringListToInt(inputList):
 	return int(''.join(inputList))
 
-def FormulaPentagon(Index):
-	return Index * (3 * Index - 1) / 2
+def FormulaTriangle(index):
+	return index * (index + 1) / 2
 
-def FormulaPentagonInverse(Index):
-	return (1 + sqrt(24 * Index + 1)) / 6
+def FormulaTriangleInverse(index):
+	return (-1 + sqrt(8 * index + 1)) / 2
+
+def FormulaPentagon(index):
+	return index * (3 * index - 1) / 2
+
+def FormulaPentagonInverse(index):
+	return (1 + sqrt(24 * index + 1)) / 6
+
+def FormulaHexagon(index):
+	return index * (2 * index - 1)
+
+def FormulaHexagonInverse(index):
+	return (1 + sqrt(8 * index + 1)) / 4
 
 def GeneratePrimeFactors(number):
 	PrimeFactors = []
@@ -827,4 +839,15 @@ def PentagonNumbers():
 			if FormulaPentagonInverse(PentagonSum).is_integer() and FormulaPentagonInverse(PentagonDifference).is_integer():
 				return int(PentagonDifference)
 
-print PentagonNumbers()
+#	ID 	45
+#	Triangular, pentagonal, and hexagonal
+#	Find the next triangle number that is also pentagonal and hexagonal.
+def TriangularPentagonalAndHexagonal(StartingIndex=285):
+	Index = StartingIndex
+	while True:
+		Index += 1
+		TriangleNumber = FormulaTriangle(Index)
+		if FormulaPentagonInverse(TriangleNumber).is_integer() and FormulaHexagonInverse(TriangleNumber).is_integer():
+			return TriangleNumber
+
+print TriangularPentagonalAndHexagonal()
