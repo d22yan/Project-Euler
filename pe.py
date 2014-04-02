@@ -872,5 +872,17 @@ def GoldbachsOtherConjecture():
 		while IsPrime(OddNumber):
 			OddNumber += 2
 
-print GoldbachsOtherConjecture()
-	
+#	ID 	47
+#	Distinct primes factors
+#	Find the first four consecutive integers to have four distinct prime factors. What is the first of these numbers?
+def DistinctPrimesFactors(consecutive=4):
+	ConsecutiveInteger = 1
+	Counter = 0
+	while True:
+		ConsecutiveInteger += 1
+		PrimeFactorSet = Set(GeneratePrimeFactors(ConsecutiveInteger))
+		Counter = Counter + 1 if len(PrimeFactorSet) == consecutive else 0
+		if Counter == consecutive:
+			return ConsecutiveInteger - consecutive + 1
+
+print DistinctPrimesFactors()
