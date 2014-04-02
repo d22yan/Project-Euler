@@ -72,7 +72,7 @@ def GeneratePrimes(size):
 		Number += 2
 	return PrimeList
 
-def GeneratePrimes(fromX, toY):
+def GeneratePrimesRange(fromX, toY):
 	PrimeList = []
 	if toY < fromX or toY < 2:
 		return PrimeList
@@ -269,14 +269,15 @@ def NthPrime(Size=10001):
 #	ID	8
 #	Largest product in a series
 # 	Find the greatest product of five consecutive digits in the 1000-digit number
-def LargestProductInASeries(consecutiveDigits, number=7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450):
+def LargestProductInASeries(number=7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450):
+	ConsecutiveDigits = 5
 	ProductList = []
 	Length = len(str(number))
 	LargestProductInASeries = 0
 	StringNumberList = list(str(number))
-	for index in range(0, Length - consecutiveDigits + 1):
+	for index in range(0, Length - ConsecutiveDigits + 1):
 		Product = 1
-		for counter in range(0, consecutiveDigits):
+		for counter in range(0, ConsecutiveDigits):
 			Product *= int(StringNumberList[index + counter])
 		ProductList.append(Product)
 	for Product in ProductList:
@@ -292,51 +293,37 @@ def SpecialPythagoreanTriple(number=1000):
 		for b in range(1, number):
 			c = (a ** 2 + b ** 2) ** (0.5)
 			if (a + b + c) == number:
-				return a * b * c
+				return int(a * b * c)
 	return
 
 #	ID 	10
 #	Summation of primes
 #	Find the sum of all the primes below two million
 def SummationOfPrimes(number=2000000):
-	if number <= 1:
-		return 
+	if number < 2:
+		return 0
 	SummationOfPrimes = 0
-	PrimeList = list(range(3,number,2))
-	SquaredNumberIndex = 0
-	SquaredNumber = int(number ** 0.5) + 1
-	for Counter in range(len(PrimeList)):
-		if PrimeList[Counter] > SquaredNumber:
-			SquaredNumberIndex = Counter
-			break
-	for Index in range(0, SquaredNumberIndex + 1):
-		Length = len(PrimeList)
-		Index2 = Index + 1
-		while Index2 < Length:
-			if PrimeList[Index2] % PrimeList[Index] == 0:
-				PrimeList.pop(Index2)
-				Length -= 1
-				Index2 -= 1
-			Index2 += 1
-	for Prime in PrimeList:
-		SummationOfPrimes += Prime
+	for Counter in range (3, number + 1, 2):
+		if IsPrime(Counter):
+			SummationOfPrimes += Counter
 	return SummationOfPrimes + 2
 
 #	ID 	11
 #	Largest product in a grid
 #	Find the greatest product of four adjacent numbers in the any direction in the 20x20 grid
-def LargestProductInAGrid(adjacentNumbers, grid=[[8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],[49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],[81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30, 3, 49, 13, 36, 65],[52, 70, 95, 23, 4, 60, 11, 42, 69, 24, 68, 56, 1, 32, 56, 71, 37, 2, 36, 91],[22, 31, 16, 71, 51, 67, 63, 89, 41, 92, 36, 54, 22, 40, 40, 28, 66, 33, 13, 80],[24, 47, 32, 60, 99, 3, 45, 2, 44, 75, 33, 53, 78, 36, 84, 20, 35, 17, 12, 50],[32, 98, 81, 28, 64, 23, 67, 10, 26, 38, 40, 67, 59, 54, 70, 66, 18, 38, 64, 70],[67, 26, 20, 68, 2, 62, 12, 20, 95, 63, 94, 39, 63, 8, 40, 91, 66, 49, 94, 21],[24, 55, 58, 5, 66, 73, 99, 26, 97, 17, 78, 78, 96, 83, 14, 88, 34, 89, 63, 72],[21, 36, 23, 9, 75, 0, 76, 44, 20, 45, 35, 14, 0, 61, 33, 97, 34, 31, 33, 95],[78, 17, 53, 28, 22, 75, 31, 67, 15, 94, 3, 80, 4, 62, 16, 14, 9, 53, 56, 92],[16, 39, 5, 42, 96, 35, 31, 47, 55, 58, 88, 24, 0, 17, 54, 24, 36, 29, 85, 57],[86, 56, 0, 48, 35, 71, 89, 7, 5, 44, 44, 37, 44, 60, 21, 58, 51, 54, 17, 58],[19, 80, 81, 68, 5, 94, 47, 69, 28, 73, 92, 13, 86, 52, 17, 77, 4, 89, 55, 40],[04, 52, 8, 83, 97, 35, 99, 16, 7, 97, 57, 32, 16, 26, 26, 79, 33, 27, 98, 66],[88, 36, 68, 87, 57, 62, 20, 72, 3, 46, 33, 67, 46, 55, 12, 32, 63, 93, 53, 69],[04, 42, 16, 73, 38, 25, 39, 11, 24, 94, 72, 18, 8, 46, 29, 32, 40, 62, 76, 36],[20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 59, 85, 74, 4, 36, 16],[20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],[01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]]):
+def LargestProductInAGrid(grid=[[8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],[49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],[81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30, 3, 49, 13, 36, 65],[52, 70, 95, 23, 4, 60, 11, 42, 69, 24, 68, 56, 1, 32, 56, 71, 37, 2, 36, 91],[22, 31, 16, 71, 51, 67, 63, 89, 41, 92, 36, 54, 22, 40, 40, 28, 66, 33, 13, 80],[24, 47, 32, 60, 99, 3, 45, 2, 44, 75, 33, 53, 78, 36, 84, 20, 35, 17, 12, 50],[32, 98, 81, 28, 64, 23, 67, 10, 26, 38, 40, 67, 59, 54, 70, 66, 18, 38, 64, 70],[67, 26, 20, 68, 2, 62, 12, 20, 95, 63, 94, 39, 63, 8, 40, 91, 66, 49, 94, 21],[24, 55, 58, 5, 66, 73, 99, 26, 97, 17, 78, 78, 96, 83, 14, 88, 34, 89, 63, 72],[21, 36, 23, 9, 75, 0, 76, 44, 20, 45, 35, 14, 0, 61, 33, 97, 34, 31, 33, 95],[78, 17, 53, 28, 22, 75, 31, 67, 15, 94, 3, 80, 4, 62, 16, 14, 9, 53, 56, 92],[16, 39, 5, 42, 96, 35, 31, 47, 55, 58, 88, 24, 0, 17, 54, 24, 36, 29, 85, 57],[86, 56, 0, 48, 35, 71, 89, 7, 5, 44, 44, 37, 44, 60, 21, 58, 51, 54, 17, 58],[19, 80, 81, 68, 5, 94, 47, 69, 28, 73, 92, 13, 86, 52, 17, 77, 4, 89, 55, 40],[04, 52, 8, 83, 97, 35, 99, 16, 7, 97, 57, 32, 16, 26, 26, 79, 33, 27, 98, 66],[88, 36, 68, 87, 57, 62, 20, 72, 3, 46, 33, 67, 46, 55, 12, 32, 63, 93, 53, 69],[04, 42, 16, 73, 38, 25, 39, 11, 24, 94, 72, 18, 8, 46, 29, 32, 40, 62, 76, 36],[20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 59, 85, 74, 4, 36, 16],[20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],[01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]]):
+	AdjacentNumbers = 4
 	LargestProductInAGrid = 0
 	for CoordinateX in range(0, 20):
 		for CoordinateY in range(0, 20):
 			ProductA = ProductB = ProductC = ProductD = 1
-			for Next in range(0,adjacentNumbers):
+			for Next in range(0, AdjacentNumbers):
 				if CoordinateX + Next < 20:
 					ProductA *= grid[CoordinateX + Next][CoordinateY]
 				if max(CoordinateX,CoordinateY) + Next < 20:
 					ProductB *= grid[CoordinateX + Next][CoordinateY + Next]
 				if CoordinateY + Next < 20:
-					ProductC *= grid[CoordinateX][CoordinateY+Next]
+					ProductC *= grid[CoordinateX][CoordinateY + Next]
 				if CoordinateX + Next < 20 and CoordinateY - Next >= 0:
 					ProductD *= grid[CoordinateX + Next][CoordinateY - Next]
 			MaxProduct = max(ProductA, ProductB, ProductC, ProductD)
@@ -384,7 +371,7 @@ def LongestCollatzSequence(number=1000000):
 #	Lattice paths
 #	Find the number of route are there through a 20x20 grid
 def LatticePaths(gridSize=20):
-	return factorial(gridSize * 2)/pow(factorial(gridSize), 2)
+	return factorial(gridSize * 2) / factorial(gridSize) ** 2
 
 #	ID 	16
 #	Power digit sum
@@ -522,7 +509,7 @@ def LexicographicPermutations(lexicographicPosition=1000000):
 				Result[Index] = Element
 				Elements.remove(Element)
 				break
-	return Result
+	return ConvertIntListToInt(Result)
 
 #	ID 	25
 #	1000-digit Fibonacci number
@@ -547,10 +534,10 @@ def NDigitFibonacciNumber(digits=1000):
 #	Find the value of the denominator < 1000 for which 1/d contains the longest recurring cycle in its decimal fraction part
 def ReciprocalCycles(limit=1000): 
 	Base = 10
-	PrimeList = GeneratePrimes(0, limit)
+	PrimeList = GeneratePrimesRange(0, limit)
 	Regex = re.compile('^([0-9]+)\\1+$')
 	for Prime in PrimeList[::-1]:
-		CyclicNumber = (pow(Base, Prime - 1) - 1) / Prime
+		CyclicNumber = (Base ** (Prime - 1) - 1) / Prime
 		if not Regex.match(str(CyclicNumber).replace('0','')):
 			return Prime
 	return
@@ -559,20 +546,20 @@ def ReciprocalCycles(limit=1000):
 #	Quadratic primes
 #	Find the product of the coefficients, a and b, for the quadratic expression, n^2 + an +b that produces the maximum number of primes for consecutive values of n, starting with n = 0
 def QuadraticPrimes(limit=1000):
-	PrimeList = GeneratePrimes(0, limit)
+	PrimeList = GeneratePrimesRange(0, limit)
 	CoefficientBList = [-x for x in PrimeList[::-1]]
 	CoefficientBList.extend(PrimeList)
 	MaxCounter = 0
 	for CoefficientB in PrimeList:
 		for CoefficientA in range(-(limit - 1), limit):
 			Counter = 1
-			while IsPrime(pow(Counter,2) + CoefficientA*Counter + CoefficientB):
+			while IsPrime(Counter ** 2 + CoefficientA * Counter + CoefficientB):
 				Counter += 1				
 			if Counter > MaxCounter:
 				MaxCounter = Counter
 				MaxCoefficientA = CoefficientA
 				MaxCoefficientB = CoefficientB
-	return MaxCoefficientA*MaxCoefficientB
+	return abs(MaxCoefficientA * MaxCoefficientB)
 
 #	ID 	28
 #	Number spiral diagonals
@@ -598,7 +585,7 @@ def DistinctPowers(limit=100):
 	DistinctPowers = Set([])
 	for A in range(2, limit + 1): 
 		for B in range(2, limit + 1):
-			DistinctPowers.add(pow(A, B))
+			DistinctPowers.add(A ** B)
 	return len(DistinctPowers)
 
 #	ID  30
@@ -607,11 +594,11 @@ def DistinctPowers(limit=100):
 def DigitFifthPowers():
 	Power = 5
 	SumDigitNthPowers = 0
-	for Counter in range(2, pow(10, Power + 1)):
+	for Counter in range(2, 10 ** (Power + 1)):
 		StringCounter = str(Counter)
 		SumPoweredStringCounter = 0
 		for Digit in StringCounter:
-			SumPoweredStringCounter += pow(int(Digit), Power)
+			SumPoweredStringCounter += int(Digit) ** Power
 		if Counter == SumPoweredStringCounter:
 			SumDigitNthPowers += Counter
 	return SumDigitNthPowers
@@ -677,7 +664,7 @@ def DigitFactorial():
 #	ID 	35
 #	Circular primes
 #	Find the number of circular primes that are below one million
-def CircularPrimes(limit=pow(10, 6)):
+def CircularPrimes(limit=10**6):
 	CircularPrimes = 0
 	CircularPrimesCount = [0 for x in range(0, len(str(limit)))]
 	for Number in range(3, limit, 2):
@@ -695,7 +682,7 @@ def CircularPrimes(limit=pow(10, 6)):
 #	ID 	36
 #	Double-base palindromes
 #	Find the sum of all numbers, less than one million, which are palindromic in base 10 and base 2
-def DoubleBasePalindromes(limit=pow(10, 6)):
+def DoubleBasePalindromes(limit=10**6):
 	Result = 0
 	LimitBinary = bin(limit)[2:]
 	Max = LimitBinary[:len(LimitBinary) / 2]
@@ -730,7 +717,7 @@ def TruncatablePrimes():
 					Result += PrimeCandidate
 					Counter += 1
 				for TruncatableNumber in TruncatableNumbers:
-					PrimeCandidates.append(TruncatableNumber * pow(10, int(len(str(PrimeCandidate)))) + PrimeCandidate)
+					PrimeCandidates.append(TruncatableNumber * 10 ** int(len(str(PrimeCandidate))) + PrimeCandidate)
 	return Result
 
 #	ID 	38
@@ -754,8 +741,8 @@ def IntegerRightTriangles(limit=1000):
 	for Perimeter in range(1, limit + 1):
 		Counter = 0
 		for A in range(1, int((Perimeter / (2 + sqrt(2))) + 1)):
-			B = (pow(Perimeter, 2) - 2 * Perimeter * A) / (2 * Perimeter - 2 * A)
-			if float(B).is_integer() and sqrt(pow(A, 2) + pow(B, 2)).is_integer():				
+			B = (Perimeter ** 2 - 2 * Perimeter * A) / (2 * Perimeter - 2 * A)
+			if float(B).is_integer() and sqrt(A ** 2 + B ** 2).is_integer():				
 				Counter += 1
 		if Counter > MaxSolution:
 			ChosenPerimeter = Perimeter
@@ -769,11 +756,11 @@ def ChampernownesConstant(maxDigit=6):
 	Result = 1
 	Counter = 0
 	ChampernownesConstantString = ''
-	while (len(ChampernownesConstantString) < pow(10, maxDigit)):
+	while (len(ChampernownesConstantString) < 10 ** maxDigit):
 		Counter += 1
 		ChampernownesConstantString += str(Counter)
 	for Number in range(0, maxDigit + 1):
-		Result *= int(ChampernownesConstantString[pow(10, Number) - 1])
+		Result *= int(ChampernownesConstantString[10 ** Number - 1])
 	return Result
 
 #	ID 	41
@@ -809,7 +796,7 @@ def CodedTriangleNumbers(fileName='words.txt'):
 #	Find the sum of all 0 to 9 pandigital numbers with this property.
 def SubStringDivisibility():
 	Counter = 0
-	DivisiblePrimes = GeneratePrimes(2,17)
+	DivisiblePrimes = GeneratePrimesRange(2,17)
 	Permutations = permutations([str(x) for x in range(0, 10)])
 	for Permutation in Permutations:
 		Flag = True
@@ -859,7 +846,7 @@ def GoldbachsOtherConjecture():
 		Flag = False
 		SquareNumber = 1
 		while True:
-			Number = OddNumber - 2 * pow(SquareNumber, 2)
+			Number = OddNumber - 2 * SquareNumber ** 2
 			if Number < 0:
 				break
 			if IsPrime(Number):
@@ -886,14 +873,19 @@ def DistinctPrimesFactors(consecutive=4):
 			return ConsecutiveInteger - consecutive + 1
 
 #	ID 	48
-#	Self oiwers
+#	Self powers
 #	Find the last ten digits of the sum of positive intergers to the exponent itself.
-def SelfPowers(Limit=pow(10, 3)):
+def SelfPowers(Limit=10**3):
 	Result = 0
 	Number = 0
 	while Number < Limit:
 		Number += 1
-		Result += pow(Number, Number)
+		Result += Number ** Number
 	return str(Result)[-10:]
 
-print SelfPowers()
+#	ID 	49
+#	Prime permutations
+#	What 12-digit number do you form by concatenating the three terms in an prime permutated arithemtic sequence?
+def PrimePermutations():
+	return
+
