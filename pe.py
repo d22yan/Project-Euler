@@ -850,4 +850,27 @@ def TriangularPentagonalAndHexagonal(StartingIndex=285):
 		if FormulaPentagonInverse(TriangleNumber).is_integer() and FormulaHexagonInverse(TriangleNumber).is_integer():
 			return TriangleNumber
 
-print TriangularPentagonalAndHexagonal()
+#	ID 	46
+#	Goldbach's other conjecture
+#	What is the smallest odd composite that cannot be written as the sum of a prime and twice a square?
+def GoldbachsOtherConjecture():
+	OddNumber = 5
+	while True:
+		Flag = False
+		SquareNumber = 1
+		while True:
+			Number = OddNumber - 2 * pow(SquareNumber, 2)
+			if Number < 0:
+				break
+			if IsPrime(Number):
+				Flag = True
+				break
+			SquareNumber += 1
+		if not Flag:
+			return OddNumber
+		OddNumber += 2
+		while IsPrime(OddNumber):
+			OddNumber += 2
+
+print GoldbachsOtherConjecture()
+	
