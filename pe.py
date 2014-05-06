@@ -74,27 +74,10 @@ def GeneratePrimes(size):
 
 def GeneratePrimesRange(fromX, toY):
 	PrimeList = []
-	if toY < fromX or toY < 2:
-		return PrimeList
-	PrimeList.append(2)
-	Number = 3
-	Counter = 1
-	StartingIndex = 0
-	if fromX == 3:
-		StartingIndex = 1
-	while Number <= toY:
-		IsPrime = True
-		for Prime in PrimeList:
-			if Number % Prime == 0:
-				IsPrime = False
-				break
-		if IsPrime:
+	for Number in range(fromX, toY + 1):
+		if IsPrime(Number):
 			PrimeList.append(Number)
-			Counter += 1
-			if Number < fromX:
-				StartingIndex = Counter 
-		Number += 2
-	return PrimeList[StartingIndex:]
+	return PrimeList
 
 def IsPalindrome(inputString):
 	PivotLength = len(inputString) / 2
@@ -909,4 +892,10 @@ def PrimePermutations():
 					if PermutationDigitSet == BufferSet and IsPrime(ThirdArthmeticSequence):
 						return FirstArithmeticSequenceString + SecondArthmeticSequenceString + ThirdArthmeticSequenceString
 
-print PrimePermutations()
+#	ID 	50
+#	Consecutive prime sum
+#	Which prime, below one-million, can be written as the sum of the most consecutive primes?
+def ConsecutivePrimeSum():
+	return
+
+print ConsecutivePrimeSum()
