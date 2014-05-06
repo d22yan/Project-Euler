@@ -887,5 +887,26 @@ def SelfPowers(Limit=10**3):
 #	Prime permutations
 #	What 12-digit number do you form by concatenating the three terms in an prime permutated arithemtic sequence?
 def PrimePermutations():
-	return
+	for FirstArithmeticSequence in range(10 ** 3, 10 ** 4):
+		if IsPrime(FirstArithmeticSequence) and FirstArithmeticSequence != 1487:
+			PermutationDigitSet = set([])
+			BufferSet = set([])
+			FirstArithmeticSequenceString = str(FirstArithmeticSequence)
+			for Index in range(len(FirstArithmeticSequenceString)):
+				PermutationDigitSet.add(FirstArithmeticSequenceString[Index])
+			for Addition in range(2, (10 ** 4 - FirstArithmeticSequence) / 2):
+				SecondArthmeticSequence = FirstArithmeticSequence + Addition
+				SecondArthmeticSequenceString = str(SecondArthmeticSequence)
+				BufferSet.clear()
+				for Index in range(len(SecondArthmeticSequenceString)):
+					BufferSet.add(SecondArthmeticSequenceString[Index])
+				if PermutationDigitSet == BufferSet and IsPrime(SecondArthmeticSequence):
+					ThirdArthmeticSequence = SecondArthmeticSequence + Addition
+					ThirdArthmeticSequenceString = str(ThirdArthmeticSequence)
+					BufferSet.clear()
+					for Index in range(len(ThirdArthmeticSequenceString)):
+						BufferSet.add(ThirdArthmeticSequenceString[Index])
+					if PermutationDigitSet == BufferSet and IsPrime(ThirdArthmeticSequence):
+						return FirstArithmeticSequenceString + SecondArthmeticSequenceString + ThirdArthmeticSequenceString
 
+print PrimePermutations()
