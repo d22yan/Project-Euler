@@ -895,7 +895,22 @@ def PrimePermutations():
 #	ID 	50
 #	Consecutive prime sum
 #	Which prime, below one-million, can be written as the sum of the most consecutive primes?
-def ConsecutivePrimeSum():
-	return
+def ConsecutivePrimeSum(limit=10**6):
+	PrimeList = GeneratePrimesRange(1, limit + 1)
+	ConsecutivePrimeSum = [0 for x in range(len(PrimeList) + 1)]
+	Sum = OverLimitIndex = 0
+	Index = 1
+	for Prime in PrimeList:
+		Sum += Prime
+		ConsecutivePrimeSum[Index] = Sum
+		if Sum < limit:
+			OverLimitIndex = Index
+		Index += 1
+	NumberOfPrimes = len(PrimeList)	
+	for NumberOfConsecutivePrimes in reversed(range(1, OverLimitIndex + 1)):
+		for Index in range(NumberOfPrimes - NumberOfConsecutivePrimes):
+			ConsecutivePrime = ConsecutivePrimeSum[ NumberOfConsecutivePrimes + Index] - ConsecutivePrimeSum[Index]
+			if ConsecutivePrime < limit and IsPrime(ConsecutivePrime):
+				return ConsecutivePrime
 
 print ConsecutivePrimeSum()
